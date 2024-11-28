@@ -1,15 +1,15 @@
-$mainColor: #22232c;
+$mainColor: #000000d8;
 $textColor: #c1c2c5;
 $mainFont: Roboto;
 
-$secondaryColor: rgba(12, 12, 12, 0.4);
+$secondaryColor: #3d3d3dad;
 $secondaryColorHighlight: #33343F;
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
 $secondaryColorDark: rgba(12, 12, 12, 0.8);
 
 $gridCols: 5;
 $gridRows: 5;
-$gridSize: 10.2vh;
+$gridSize: 7.2vh;
 $gridGap: 2px;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
 
@@ -117,28 +117,33 @@ button:active {
 
 .inventory-wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   height: 100%;
-
-  gap: 20px;
+  gap: 0px;
+  padding-right: 25px;
 }
 
 .inventory-control {
   display: flex;
+  background-color: #000000d8;
+  padding: 9px;
+  width: calc(36vh + 8px);
+  border-radius: 5px 5px 0 0;
 
   .inventory-control-wrapper {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
+    flex: auto;
+    gap: 5px;
   }
 
   .inventory-control-input {
     transition: 200ms;
-    padding: 16px 8px;
+    padding: 11px 8px;
     border-radius: 2.5%;
     font-family: $mainFont;
     font-size: 16px;
@@ -147,13 +152,16 @@ button:active {
     border: none;
     color: #fff;
     background-color: $secondaryColor;
+    min-width: 0;
+    flex: 1;
+    width: 1px;
     &:focus-within {
       background-color: $secondaryColorDark;
     }
   }
 
   .inventory-control-button {
-    font-size: 14px;
+    font-size: 0.75rem;
     color: #fff;
     background-color: $secondaryColor;
     transition: 200ms;
@@ -164,6 +172,8 @@ button:active {
     font-family: $mainFont;
     width: 100%;
     font-weight: 500;
+    width: 7.2vh;
+    height: 100%;
     &:hover {
       background-color: $secondaryColorDark;
     }
@@ -261,13 +271,18 @@ button:active {
   display: flex;
   flex-direction: column;
   gap: calc($gridGap * 2);
+  padding: 9px;
+  background-color: $mainColor;
+}
+.inventory-grid-wrapper:last-child {
+  border-radius: 0 0 5px 5px;
 }
 .inventory-grid-header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   p {
-    font-size: 16px;
+    font-size: 13px;
   }
 }
 
@@ -284,15 +299,19 @@ button:active {
 .inventory-slot {
   background-color: $secondaryColor;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center 15px;
   border-radius: 2.5%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
-  background-size: 7vh;
+  background-size: 4.5vh;
   color: $textColor;
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
+}
+
+.inventory-hotslot {
+  background-color: #ad3b3b70;
 }
 
 .inventory-slot-label-box {
@@ -304,6 +323,7 @@ button:active {
   border-top-color: rgba(0, 0, 0, 0.2);
   border-top-style: inset;
   border-top-width: 1px;
+  display: none;
 }
 
 .inventory-slot-label-text {
@@ -314,7 +334,7 @@ button:active {
   padding: 2px 3px;
   font-weight: 400;
   font-family: $mainFont;
-  font-size: 12px;
+  font-size: 9px;
 }
 
 .inventory-slot-number {
@@ -326,6 +346,7 @@ button:active {
   padding: 3px;
   font-size: 12px;
   font-family: $mainFont;
+  visibility: hidden;
 }
 
 .item-slot-wrapper {
@@ -344,9 +365,15 @@ button:active {
   justify-content: flex-end;
 }
 
-.item-hotslot-header-wrapper {
-  @extend .item-slot-header-wrapper;
-  justify-content: space-between !important;
+.item-slot-footer-wrapper {
+  position: absolute;
+  bottom: 2px;
+  right: 5px;
+  border-radius: 100%;
+}
+
+.item-slot-footer-wrapper p {
+  text-align: center;
 }
 
 .item-slot-info-wrapper {
@@ -356,7 +383,7 @@ button:active {
   padding: 3px;
   gap: 3px;
   p {
-    font-size: 12px;
+    font-size: 11px;
   }
 }
 
@@ -367,7 +394,7 @@ button:active {
   align-items: center;
   padding-right: 3px;
   p {
-    font-size: 14px;
+    font-size: 12px;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
   }
 }
@@ -378,7 +405,7 @@ button:active {
   justify-content: flex-end;
   padding-right: 3px;
   p {
-    font-size: 14px;
+    font-size: 12px;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
   }
 }
@@ -509,10 +536,23 @@ button:active {
   overflow: hidden;
 }
 
+.durability-bar-vertical {
+  background: rgba(0, 0, 0, 0.5);
+  width: 3px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.durability-bar-vertical,
+.durability-bar-vertical div {
+  position: absolute;
+  bottom: 0;
+}
+
 .weight-bar {
   background: rgba(0, 0, 0, 0.4);
   border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 0.8vh;
+  height: 0.5vh;
   border-radius: 5%;
   overflow: hidden;
 }

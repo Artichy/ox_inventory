@@ -34,12 +34,12 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
   );
 
   return (
-    <div className={durability ? 'durability-bar' : 'weight-bar'}>
+    <div className={durability ? 'durability-bar-vertical' : 'weight-bar'}>
       <div
         style={{
           visibility: percent > 0 ? 'visible' : 'hidden',
-          height: '100%',
-          width: `${percent}%`,
+          height: durability ? `${percent}%` : '100%',
+          width: durability ? '100%' : `${percent}%`,
           backgroundColor: color,
           transition: `background ${0.3}s ease, width ${0.3}s ease`,
         }}
