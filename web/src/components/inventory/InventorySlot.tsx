@@ -154,7 +154,7 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
           <div className={'item-slot-header-wrapper'}>
             <div className="item-slot-info-wrapper">
               <p>
-                {item.weight > 0
+                {item.weight !== undefined
                   ? item.weight >= 1000
                     ? `${(item.weight / 1000).toLocaleString('en-us', {
                         minimumFractionDigits: 2,
@@ -166,47 +166,47 @@ const InventorySlot: React.ForwardRefRenderFunction<HTMLDivElement, SlotProps> =
               </p>
             </div>
           </div>
-          <div>
-            {inventoryType !== 'shop' && item?.durability !== undefined && (
-              <WeightBar percent={item.durability} durability />
-            )}
-            <div className='item-slot-footer-wrapper'>
-              <p>{item.count ? item.count.toLocaleString('en-us') + `x` : ''}</p>
-              {inventoryType === 'shop' && item?.price !== undefined && (
-              <>
-                {item?.currency !== 'money' && item.currency !== 'black_money' && item.price > 0 && item.currency ? (
-                  <div className="item-slot-currency-wrapper">
-                    <img
-                      src={item.currency ? getItemUrl(item.currency) : 'none'}
-                      alt="item-image"
-                      style={{
-                        imageRendering: '-webkit-optimize-contrast',
-                        height: 'auto',
-                        width: '2vh',
-                        backfaceVisibility: 'hidden',
-                        transform: 'translateZ(0)',
-                      }}
-                    />
-                    <p>{item.price.toLocaleString('en-us')}</p>
-                  </div>
-                ) : (
-                  <>
-                    {item.price > 0 && (
-                      <div
-                        className="item-slot-price-wrapper"
-                        style={{ color: item.currency === 'money' || !item.currency ? '#2ECC71' : '#E74C3C' }}
-                      >
-                        <p>
-                          {Locale.$ || '$'}
-                          {item.price.toLocaleString('en-us')}
-                        </p>
-                      </div>
-                    )}
-                  </>
-                )}
-              </>
-            )}
+          <div className='durability-bar-vertical-wrapper'>
+              {inventoryType !== 'shop' && item?.durability !== undefined && (
+                <WeightBar percent={item.durability} durability />
+              )}
             </div>
+          <div className='item-slot-footer-wrapper'>
+            <p>{item.count ? item.count.toLocaleString('en-us') : ''}</p>
+            {inventoryType === 'shop' && item?.price !== undefined && (
+            <>
+              {item?.currency !== 'money' && item.currency !== 'black_money' && item.price > 0 && item.currency ? (
+                <div className="item-slot-currency-wrapper">
+                  <img
+                    src={item.currency ? getItemUrl(item.currency) : 'none'}
+                    alt="item-image"
+                    style={{
+                      imageRendering: '-webkit-optimize-contrast',
+                      height: 'auto',
+                      width: '2vh',
+                      backfaceVisibility: 'hidden',
+                      transform: 'translateZ(0)',
+                    }}
+                  />
+                  <p>{item.price.toLocaleString('en-us')}</p>
+                </div>
+              ) : (
+                <>
+                  {item.price > 0 && (
+                    <div
+                      className="item-slot-price-wrapper"
+                      style={{ color: item.currency === 'money' || !item.currency ? '#2ECC71' : '#E74C3C' }}
+                    >
+                      <p>
+                        {Locale.$ || '$'}
+                        {item.price.toLocaleString('en-us')}
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
           </div>
         </div>
       )}

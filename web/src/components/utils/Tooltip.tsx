@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useAppSelector } from '../../store';
 import SlotTooltip from '../inventory/SlotTooltip';
 
-const Tooltip: React.FC = () => {
+const Tooltip = React.forwardRef(() => {
   const hoverData = useAppSelector((state) => state.tooltip);
 
   const { refs, context, floatingStyles } = useFloating({
@@ -55,6 +55,6 @@ const Tooltip: React.FC = () => {
       )}
     </>
   );
-};
+});
 
 export default Tooltip;

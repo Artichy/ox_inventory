@@ -40,8 +40,8 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
           visibility: percent > 0 ? 'visible' : 'hidden',
           height: durability ? `${percent}%` : '100%',
           width: durability ? '100%' : `${percent}%`,
-          backgroundColor: color,
-          transition: `background ${0.3}s ease, width ${0.3}s ease`,
+          transition: `background ${0.3}s ease, width ${0.3}s ease, height ${0.3}s ease`,
+          clipPath: percent < 100 ? `polygon(0 0, 100% 0, ${durability ? '100%' : 'calc(100% - 8px)'} 100%, 0 100%)` : 'none',
         }}
       ></div>
     </div>

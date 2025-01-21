@@ -5,9 +5,13 @@ import { selectItemAmount, setItemAmount } from '../../store/inventory';
 import { DragSource } from '../../typings';
 import { onUse } from '../../dnd/onUse';
 import { onGive } from '../../dnd/onGive';
+import { onDrop } from '../../dnd/onDrop';
 import { fetchNui } from '../../utils/fetchNui';
 import { Locale } from '../../store/locale';
 import UsefulControls from './UsefulControls';
+import { motion } from "motion/react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBox, faClose, faHandHolding, faHandHoldingHand, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
@@ -29,6 +33,13 @@ const InventoryControl: React.FC = () => {
     },
   }));
 
+  const [, drop] = useDrop<DragSource, void, any>(() => ({
+    accept: 'SLOT',
+    drop: (source) => {
+      source.inventory === 'player' && onDrop({ item: source.item, inventory: 'player' });
+    },
+  }));
+
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.valueAsNumber =
       isNaN(event.target.valueAsNumber) || event.target.valueAsNumber < 0 ? 0 : Math.floor(event.target.valueAsNumber);
@@ -38,7 +49,10 @@ const InventoryControl: React.FC = () => {
   return (
     <>
       <UsefulControls infoVisible={infoVisible} setInfoVisible={setInfoVisible} />
-      <div className="inventory-control">
+      <motion.div className="inventory-control"
+        layout
+        initial={{ opacity: 0, y: 300 }}
+        animate={{ opacity: 1, y: 0 }}>
         <div className="inventory-control-wrapper">
           <input
             className="inventory-control-input"
@@ -48,16 +62,19 @@ const InventoryControl: React.FC = () => {
             min={0}
           />
           <button className="inventory-control-button" ref={use}>
-            {Locale.ui_use || 'Use'}
+            <FontAwesomeIcon icon={faHandHolding} />
           </button>
           <button className="inventory-control-button" ref={give}>
-            {Locale.ui_give || 'Give'}
+            <FontAwesomeIcon icon={faHandHoldingHand} />
+          </button>
+          <button className="inventory-control-button" ref={drop}>
+            <FontAwesomeIcon icon={faTrashCan} />
           </button>
           <button className="inventory-control-button" onClick={() => fetchNui('exit')}>
-            {Locale.ui_close || 'Close'}
+            <FontAwesomeIcon icon={faClose} style={{verticalAlign: "middle"}} />
           </button>
         </div>
-      </div>
+      </motion.div>
 
       <button className="useful-controls-button" onClick={() => setInfoVisible(true)}>
         <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 524 524">

@@ -20,14 +20,14 @@ debugData([
         id: 'test',
         type: 'player',
         slots: 50,
-        label: 'Bob Smith',
+        label: 'Luna Blossom',
         weight: 3000,
-        maxWeight: 5000,
+        maxWeight: 6000,
         items: [
           {
             slot: 1,
-            name: 'iron',
-            weight: 3000,
+            name: 'card_id',
+            weight: 2000,
             metadata: {
               description: `name: Svetozar Miletic  \n Gender: Male`,
               ammo: 3,
@@ -37,20 +37,20 @@ debugData([
             },
             count: 5,
           },
-          { slot: 2, name: 'powersaw', weight: 0, count: 1, metadata: { durability: 75 } },
-          { slot: 3, name: 'copper', weight: 100, count: 12, metadata: { type: 'Special' } },
+          { slot: 2, name: 'pizza_ham_slice', weight: 10, count: 1, metadata: { durability: 75 } },
+          { slot: 3, name: 'key', weight: 10, count: 12, metadata: { type: 'Special' } },
           {
             slot: 4,
-            name: 'water',
-            weight: 100,
+            name: 'burger',
+            weight: 1000,
             count: 1,
-            metadata: { description: 'Generic item description' },
+            metadata: { description: 'Generic item description', durability: 100 },
           },
           { slot: 5, name: 'water', weight: 100, count: 1 },
           {
             slot: 6,
             name: 'backwoods',
-            weight: 100,
+            weight: 0,
             count: 1,
             metadata: {
               label: 'Russian Cream',
@@ -60,31 +60,24 @@ debugData([
         ],
       },
       rightInventory: {
-        id: 'shop',
-        type: 'crafting',
+        id: 'drop',
+        type: 'newdrop',
         slots: 5000,
         label: 'Bob Smith',
         weight: 3000,
         maxWeight: 5000,
         items: [
-          {
-            slot: 1,
-            name: 'lockpick',
-            weight: 500,
-            price: 300,
-            ingredients: {
-              iron: 5,
-              copper: 12,
-              powersaw: 0.1,
-            },
-            metadata: {
-              description: 'Simple lockpick that breaks easily and can pick basic door locks',
-            },
-          },
         ],
       },
     },
   },
+]);
+
+debugData([
+  {
+    action: 'toggleHotbar',
+    data: {}
+  }
 ]);
 
 const App: React.FC = () => {
