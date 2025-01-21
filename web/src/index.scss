@@ -1,22 +1,24 @@
-$mainColor: #000000d8;
+$mainColor: #151515;
 $textColor: #c1c2c5;
-$mainFont: Roboto;
+$mainFont: Goldman;
+$mainBlur: 6px;
 
-$secondaryColor: #3d3d3dad;
-$secondaryColorHighlight: #33343F;
+$secondaryColor: #474747;
+$secondaryColorHighlight: #af2222;
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
 $secondaryColorDark: rgba(12, 12, 12, 0.8);
 
 $gridCols: 5;
-$gridRows: 5;
-$gridSize: 7.2vh;
-$gridGap: 2px;
+$gridRows: 4;
+$gridSize: 7vh;
+$gridGap: 4px;
 $containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap');
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Goldman", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -51,6 +53,9 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .app-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 100%;
   width: 100%;
   color: white;
@@ -60,19 +65,19 @@ input[type='number']::-webkit-outer-spin-button {
   min-width: 200px;
   background-color: $mainColor;
   color: $textColor;
-  padding: 4px;
+  padding: 8px;
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
-  border-radius: 4px;
+  border-radius: 10px;
   outline: none;
   display: flex;
   flex-direction: column;
 }
 
-.context-menu-item  {
+.context-menu-item {
   padding: 8px;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: transparent;
   outline: none;
   border: none;
@@ -80,9 +85,11 @@ input[type='number']::-webkit-outer-spin-button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   &:active {
     transform: none;
   }
+
   &:hover {
     background-color: $secondaryColorHighlight;
     cursor: pointer;
@@ -93,7 +100,7 @@ input[type='number']::-webkit-outer-spin-button {
   padding-top: 5px;
 }
 
-.tooltip-markdown > p {
+.tooltip-markdown>p {
   margin: 0;
 }
 
@@ -117,9 +124,9 @@ button:active {
 
 .inventory-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: end;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
   height: 100%;
   gap: 0px;
   padding-right: 25px;
@@ -127,55 +134,94 @@ button:active {
 
 .inventory-control {
   display: flex;
-  background-color: #000000d8;
-  padding: 9px;
-  width: calc(36vh + 8px);
-  border-radius: 5px 5px 0 0;
+  padding: 10px;
+  width: 60px;
+  min-width: min-content;
+  border-radius: 5px 0 0 5px;
+  margin-top: 58px;
 
   .inventory-control-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     flex: auto;
     gap: 5px;
+    overflow: visible;
+
+    p {
+      font-size: x-small;
+      padding: 0 5px;
+    }
+
+    hr {
+      width: 100%;
+      border-color: $secondaryColor;
+      border-width: 2px;
+    }
   }
 
   .inventory-control-input {
     transition: 200ms;
     padding: 11px 8px;
-    border-radius: 2.5%;
-    font-family: $mainFont;
+    border-radius: 30px;
+    font-family: "Roboto";
     font-size: 16px;
     text-align: center;
     outline: none;
-    border: none;
     color: #fff;
     background-color: $secondaryColor;
     min-width: 0;
-    flex: 1;
-    width: 1px;
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 1);
+
+    border: 2px solid transparent;
+    background:
+      linear-gradient($mainColor, $mainColor) padding-box,
+      linear-gradient(to bottom, #de0000, #800000) border-box;
+
     &:focus-within {
       background-color: $secondaryColorDark;
     }
   }
 
   .inventory-control-button {
-    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
     color: #fff;
     background-color: $secondaryColor;
     transition: 200ms;
     padding: 12px 8px;
-    border-radius: 2.5%;
+    border-radius: 20px;
     border: none;
     text-transform: uppercase;
     font-family: $mainFont;
     width: 100%;
     font-weight: 500;
-    width: 7.2vh;
-    height: 100%;
+    width: 100%;
+    height: 35px;
+    transition: all 200ms ease-in-out;
+    overflow: visible;
+    box-shadow: 0 1px 7px rgba(0, 0, 0, 1);
+
+    border: 2px solid transparent;
+    background:
+      linear-gradient($mainColor, $mainColor) padding-box,
+      linear-gradient(to bottom, #de0000, #800000) border-box;
+
+    &:first-of-type {
+      svg {
+        bottom: 4px;
+        position: relative;
+      }
+    }
+
     &:hover {
-      background-color: $secondaryColorDark;
+      transform: scale(1.1);
     }
   }
 }
@@ -191,7 +237,7 @@ button:active {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  border-radius: 4px;
+  border-radius: 20px;
   gap: 16px;
 }
 
@@ -216,6 +262,7 @@ button:active {
   align-items: center;
   border-radius: 4px;
   fill: $textColor;
+
   &:hover {
     background-color: $secondaryColorHighlight;
     cursor: pointer;
@@ -247,8 +294,9 @@ button:active {
   justify-content: center;
   align-items: center;
   fill: white;
-  border-radius: 5% !important;
+  border-radius: 10px;
   background-color: $secondaryColor !important;
+
   &:hover {
     background-color: $secondaryColorDark !important;
     cursor: pointer;
@@ -267,20 +315,78 @@ button:active {
 
 
 // inventory grids
+.inventory-grid-header-container {
+  flex: 1;
+  margin-bottom: 5px;
+
+  h1 {
+    margin: 0;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  p {
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  span {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    * {
+      font-size: 1.2rem;
+    }
+  }
+
+  .inventory-grid-header-container-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center
+  }
+}
+
+.inventory-grid-root {
+  border-radius: 20px;
+  border: solid 3px transparent;
+  background:
+    linear-gradient($mainColor, $mainColor) padding-box,
+    linear-gradient(to top left, #ff2d2d, #800000) border-box;
+}
+
 .inventory-grid-wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: calc($gridGap * 2);
-  padding: 9px;
+  padding: 15px;
   background-color: $mainColor;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  top: 3px;
+  left: 3px;
 }
-.inventory-grid-wrapper:last-child {
-  border-radius: 0 0 5px 5px;
+
+.inventory-grid-root:nth-child(2) {
+  background:
+    linear-gradient($mainColor, $mainColor) padding-box,
+    linear-gradient(to top left, #ff2d2d, #800000) border-box;
 }
+
+.inventory-inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .inventory-grid-header-wrapper {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   p {
     font-size: 13px;
   }
@@ -300,7 +406,7 @@ button:active {
   background-color: $secondaryColor;
   background-repeat: no-repeat;
   background-position: center 15px;
-  border-radius: 2.5%;
+  border-radius: 10.5%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
   background-size: 4.5vh;
@@ -334,7 +440,7 @@ button:active {
   padding: 2px 3px;
   font-weight: 400;
   font-family: $mainFont;
-  font-size: 9px;
+  font-size: 0.6rem;
 }
 
 .inventory-slot-number {
@@ -344,7 +450,7 @@ button:active {
   border-top-left-radius: 0.25vh;
   border-bottom-right-radius: 0.25vh;
   padding: 3px;
-  font-size: 12px;
+  font-size: 0.6rem;
   font-family: $mainFont;
   visibility: hidden;
 }
@@ -354,12 +460,16 @@ button:active {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+
   p {
-    font-size: 12px;
+    font-size: 0.6rem;
   }
 }
 
 .item-slot-header-wrapper {
+  position: absolute;
+  right: 2px;
+  top: 2px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -367,9 +477,11 @@ button:active {
 
 .item-slot-footer-wrapper {
   position: absolute;
+  right: 2px;
   bottom: 2px;
-  right: 5px;
-  border-radius: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
 
 .item-slot-footer-wrapper p {
@@ -382,9 +494,21 @@ button:active {
   align-self: flex-end;
   padding: 3px;
   gap: 3px;
+
   p {
-    font-size: 11px;
+    font-size: 0.6rem;
   }
+}
+
+.item-slot-info-wrapper,
+.item-slot-footer-wrapper {
+  border-radius: 5px;
+  padding: 2px 4px;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .item-slot-currency-wrapper {
@@ -393,8 +517,9 @@ button:active {
   justify-content: flex-end;
   align-items: center;
   padding-right: 3px;
+
   p {
-    font-size: 12px;
+    font-size: 0.6rem;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
   }
 }
@@ -404,8 +529,9 @@ button:active {
   flex-direction: row;
   justify-content: flex-end;
   padding-right: 3px;
+
   p {
-    font-size: 12px;
+    font-size: 0.6rem;
     text-shadow: 0.1vh 0.1vh 0 rgba(0, 0, 0, 0.7);
   }
 }
@@ -421,10 +547,11 @@ button:active {
   min-width: 200px;
   color: $textColor;
   font-family: $mainFont;
-  border-radius: 4px;
+  border-radius: 10px;
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
+
   p {
     font-size: 12px;
     font-weight: 400;
@@ -436,6 +563,7 @@ button:active {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   p {
     font-size: 15px;
     font-weight: 400;
@@ -447,9 +575,11 @@ button:active {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
   svg {
     padding-right: 3px;
   }
+
   p {
     font-size: 14px;
   }
@@ -463,6 +593,7 @@ button:active {
   display: flex;
   flex-direction: row;
   align-items: center;
+
   img {
     width: 28px;
     height: 28px;
@@ -517,6 +648,7 @@ button:active {
   border-top-left-radius: 0.25vh;
   border-top-right-radius: 0.25vh;
   font-family: $mainFont;
+
   p {
     font-size: 11px;
     padding: 2px;
@@ -530,30 +662,54 @@ button:active {
   width: $gridSize;
 }
 
-.durability-bar {
-  background: rgba(0, 0, 0, 0.5);
-  height: 3px;
-  overflow: hidden;
+.durability-bar-vertical-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  height: 100%;
+  width: fit-content;
+  padding: 8px 4px;
 }
 
 .durability-bar-vertical {
-  background: rgba(0, 0, 0, 0.5);
-  width: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 5px;
   height: 100%;
   overflow: hidden;
+  border-radius: 10px;
+
+  div {
+    background: linear-gradient(45deg, #198754, #31cf80);
+  }
 }
 
 .durability-bar-vertical,
-.durability-bar-vertical div {
-  position: absolute;
-  bottom: 0;
+.weight-bar {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, #1a1a1a, #33343f);
+}
+
+.durability-bar-vertical div,
+.weight-bar div {
+  transition: width 0.4s ease-in-out, clip-path 0.4s ease-in-out;
 }
 
 .weight-bar {
-  background: rgba(0, 0, 0, 0.4);
-  border: 1px inset rgba(0, 0, 0, 0.1);
-  height: 0.5vh;
-  border-radius: 5%;
+  margin-top: 5px;
+  height: 0.75vh;
+  border-radius: 10px;
+  overflow: hidden;
+
+  div {
+    background: linear-gradient(45deg, #ff2d2d, #800000);
+  }
+}
+
+.durability-bar {
+  background: rgba(0, 0, 0, 0.5);
+  height: 3px;
   overflow: hidden;
 }
 
@@ -563,7 +719,7 @@ button:active {
 
 .transition-fade-enter-active {
   opacity: 1;
-  transition: opacity 200ms;
+  transition: all 200ms;
 }
 
 .transition-fade-exit {
@@ -572,7 +728,7 @@ button:active {
 
 .transition-fade-exit-active {
   opacity: 0;
-  transition: opacity 200ms;
+  transition: all 200ms;
 }
 
 .transition-slide-up-enter {
